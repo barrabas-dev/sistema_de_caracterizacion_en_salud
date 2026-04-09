@@ -1,0 +1,53 @@
+# --- General / OS ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# --- IDE Antigravity / IA Context ---
+# Ignora los índices de búsqueda y el historial local del asistente
+.antigravity/
+.gemini/
+.ai_context/
+.aiconfig
+*.indexing
+.cursor/
+
+# --- MariaDB / SQL ---
+*.sql
+*.mysql
+.env
+
+# --- Django ---
+backend/__pycache__/
+backend/*.py[cod]
+backend/*$py.class
+backend/.env
+backend/venv/
+backend/env/
+backend/db.sqlite3
+backend/media/
+
+# --- Python / Virtual Env ---
+backend/env/
+backend/venv/
+backend/__pycache__/
+*.pyc
+
+# --- Node / Frontend ---
+frontend/node_modules/
+frontend/.pnp
+frontend/.pnp.js
+frontend/build/
+frontend/dist/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# --- Logs ---
+*.log
+.python-version
