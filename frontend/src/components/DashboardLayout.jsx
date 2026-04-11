@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Menu, X, Home, Users, ClipboardList, LogOut } from 'lucide-react';
+import { Menu, X, Home, Users, ClipboardList, LogOut, FileText } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAuthStore from '../store/authStore';
 
@@ -18,6 +18,7 @@ export default function DashboardLayout({ children }) {
     { name: 'Inicio', href: '/dashboard', icon: Home },
     { name: 'Pacientes', href: '/pacientes/nuevo', icon: Users },
     { name: 'Encuestas', href: '/encuestas/nueva', icon: ClipboardList },
+    { name: 'Gestión de PAE', href: '/encuestas/panel', icon: FileText },
   ];
 
   const getFirstLetter = (name) => {

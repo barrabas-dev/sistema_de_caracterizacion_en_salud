@@ -5,6 +5,7 @@ import StatsSection from './components/StatsSection';
 import TablaPacientes from './components/TablaPacientes';
 import PacienteForm from './components/PacienteForm';
 import EncuestaForm from './components/EncuestaForm';
+import DashboardEncuestas from './components/DashboardEncuestas';
 import Login from './pages/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -83,6 +84,7 @@ function App() {
             <Route path="/dashboard" element={<DashboardView />} />
             <Route path="/pacientes/nuevo" element={<PacienteWrapper />} />
             <Route path="/encuestas/nueva" element={<EncuestaWrapper />} />
+            <Route path="/encuestas/panel" element={<DashboardEncuestas />} />
           </Route>
         </Route>
         
