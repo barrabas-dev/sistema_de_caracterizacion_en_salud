@@ -43,7 +43,7 @@ export default function DashboardLayout({ children }) {
         } flex flex-col shadow-lg lg:shadow-none`}
       >
         <div className="flex items-center justify-between h-16 px-6 border-b border-gray-200 bg-indigo-600">
-          <span className="text-xl font-bold text-white tracking-wide">SaludTech</span>
+          <span className="text-xl font-bold text-white tracking-wide">Sistema SCS</span>
           <button 
             className="lg:hidden text-indigo-100 hover:text-white transition-colors"
             onClick={() => setSidebarOpen(false)}

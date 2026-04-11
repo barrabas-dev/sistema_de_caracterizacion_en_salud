@@ -8,12 +8,13 @@ import EncuestaForm from './components/EncuestaForm';
 import DashboardEncuestas from './components/DashboardEncuestas';
 import Login from './pages/Login';
 import ProtectedRoute from './components/ProtectedRoute';
+import PlanDocumento from './components/PlanDocumento';
 
 const DashboardView = () => (
   <>
     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Hola, Administrador</h1>
+        <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Hola, Enfermero</h1>
         <p className="text-gray-500 mt-2 text-sm">Aquí está el resumen de la actividad reciente del sistema de caracterización.</p>
       </div>
       <div className="flex gap-3">
@@ -86,6 +87,8 @@ function App() {
             <Route path="/encuestas/nueva" element={<EncuestaWrapper />} />
             <Route path="/encuestas/panel" element={<DashboardEncuestas />} />
           </Route>
+          
+          <Route path="/planes/documento/:id" element={<PlanDocumento />} />
         </Route>
         
         <Route path="/" element={<Navigate to="/dashboard" replace />} />

@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
-import { ClipboardList, Edit2, Trash2, Wand2, AlertCircle } from 'lucide-react';
+import { ClipboardList, Edit2, Trash2, Wand2, AlertCircle, Loader2, FileText } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 
 export default function DashboardEncuestas() {
   const [encuestas, setEncuestas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [generatingId, setGeneratingId] = useState(null);
+  const navigate = useNavigate();
 
   // Cargar encuestas desde Django
   const fetchEncuestas = async () => {
@@ -35,14 +38,17 @@ export default function DashboardEncuestas() {
     }
   };
 
-  // Generar Plan Placeholder
+  // Generar Plan
   const handleGenerarPlan = async (encuestaId) => {
+    setGeneratingId(encuestaId);
     try {
-      await api.post(`encuestas/${encuestaId}/generar_plan/`);
+      await api.post(`encuestas/${encuestaId}/generar-plan/`);
       alert("¡Plan de Cuidado generado exitosamente!");
       fetchEncuestas(); // Recargamos para actualizar el estado del botón a "Plan Generado"
     } catch (error) {
-      alert(error.response?.data?.detail || "Error al generar el plan.");
+      alert(error.response?.data?.detail || error.response?.data?.error || "Error al generar el plan.");
+    } finally {
+      setGeneratingId(null);
     }
   };
 
@@ -106,15 +112,35 @@ export default function DashboardEncuestas() {
                     {/* Botón Mágico: Generar Plan */}
                     <button 
                       onClick={() => handleGenerarPlan(encuesta.id)}
-                      disabled={encuesta.tiene_plan}
+                      disabled={encuesta.tiene_plan || generatingId === encuesta.id}
                       title={encuesta.tiene_plan ? "El plan ya existe" : "Generar Plan de Cuidado"} 
-                      className={`p-2 rounded-lg transition-all ${
+                      className={`p-2 rounded-lg transition-all flex items-center justify-center ${
                         encuesta.tiene_plan 
                           ? 'text-slate-300 bg-slate-50 cursor-not-allowed' 
-                          : 'text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm'
+                          : generatingId === encuesta.id
+                            ? 'text-slate-500 bg-slate-200 cursor-not-allowed'
+                            : 'text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm'
                       }`}>
-                      <Wand2 size={16} />
+                      {generatingId === encuesta.id ? (
+                        <div className="flex items-center gap-1 px-1">
+                          <Loader2 size={16} className="animate-spin" />
+                          <span className="text-xs font-medium">Generando...</span>
+                        </div>
+                      ) : (
+                        <Wand2 size={16} />
+                      )}
                     </button>
+
+                    {/* Botón Ver Documento Generado */}
+                    {encuesta.tiene_plan && (
+                      <button 
+                        onClick={() => navigate(`/planes/documento/${encuesta.id}`)}
+                        title="Ver Documento" 
+                        className="p-2 rounded-lg text-emerald-600 hover:bg-emerald-50 transition-colors"
+                      >
+                        <FileText size={16} />
+                      </button>
+                    )}
 
                     <button title="Editar Encuesta" className="p-2 rounded-lg text-sky-600 hover:bg-sky-50 transition-colors">
                       <Edit2 size={16} />

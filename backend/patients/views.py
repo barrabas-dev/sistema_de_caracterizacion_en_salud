@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .models import Paciente
 from surveys.models import Encuesta, PlanCuidado
+from surveys.services import MotorPAE
 from .serializers import PacienteSerializer, EncuestaSerializer, PlanCuidadoSerializer
 
 class PacienteViewSet(viewsets.ModelViewSet):
@@ -20,31 +21,17 @@ class EncuestaViewSet(viewsets.ModelViewSet):
     serializer_class = EncuestaSerializer
     permission_classes = [IsAuthenticated]
 
-    # Endpoint personalizado: POST /api/encuestas/{id}/generar_plan/
-    @action(detail=True, methods=['post'])
+    # Endpoint personalizado: POST /api/encuestas/{id}/generar-plan/
+    @action(detail=True, methods=['post'], url_path='generar-plan')
     def generar_plan(self, request, pk=None):
-        encuesta = self.get_object()
-
-        # 1. Regla de Integridad: Verificar que no exista ya un plan
-        if hasattr(encuesta, 'plan_cuidado'):
-            return Response(
-                {"detail": "Esta encuesta ya tiene un plan de cuidado asociado."},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-
-        # 2. Generar el Plan Placeholder con los nuevos campos de tu modelo
-        plan = PlanCuidado.objects.create(
-            encuesta=encuesta,
-            situaciones="[Análisis pendiente basado en RIAS...]",
-            prioridad="[Priorización pendiente...]",
-            intervenciones="[Intervenciones pendientes...]",
-            actividades="[Actividades pendientes...]"
-        )
-
-        return Response(
-            {
-                "detail": "Plan de cuidado generado exitosamente (Modo Placeholder).", 
+        try:
+            plan = MotorPAE.generar_plan_desde_encuesta(encuesta_id=pk)
+            return Response({
+                "mensaje": "Plan de Cuidado generado exitosamente.",
                 "plan_id": plan.id
-            },
-            status=status.HTTP_201_CREATED
-        )
+            }, status=status.HTTP_200_OK)
+            
+        except Encuesta.DoesNotExist:
+            return Response({"error": "La encuesta no existe."}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
