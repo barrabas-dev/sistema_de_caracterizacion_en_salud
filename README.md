@@ -49,3 +49,125 @@ Las vistas del frontend (`/dashboard`, `/pacientes/nuevo`, `/encuestas/nueva`, `
 ### 🟡 En Desarrollo / Fase de Pruebas
 * **MotorPAE (Generador Lógico):** Desarrollo del algoritmo central en el backend para procesar reglas RIAS a partir del modelo `Encuesta` y popular automáticamente el `PlanCuidado`.
 * **Vista de Documentos A4 (`PlanDocumento`):** Componente indexado diseñado para visualización, impresión y exportación del plan médico final. Actualmente en proceso de estilización CSS *print-friendly* y poblamiento de datos.
+
+
+
+```markdown
+
+
+## ⚙️ Instalación y Configuración Local
+
+Sigue estos pasos para levantar el entorno de desarrollo en tu máquina local. El proyecto está dividido en dos partes principales: el servidor (**Backend**) y la interfaz de usuario (**Frontend**).
+
+### 📋 Prerrequisitos
+
+Asegúrate de tener instalados los siguientes componentes en tu sistema:
+* [Python 3.10 o superior](https://www.python.org/)
+* [Node.js (v18+) y npm](https://nodejs.org/)
+* [MySQL Server](https://dev.mysql.com/downloads/)
+
+### 🗄️ 1. Configuración de la Base de Datos
+
+1. Inicia tu servidor MySQL local.
+2. Crea una base de datos vacía para el proyecto. Puedes hacerlo desde tu cliente SQL preferido o usando la terminal:
+
+```sql
+CREATE DATABASE bd_sistema_de_carectizacion_en_salud CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+```
+
+### 🐍 2. Configuración del Backend (Django)
+
+Abre una terminal y navega hasta la carpeta del proyecto.
+
+1. **Ingresa al directorio del backend:**
+```bash
+cd backend
+
+```
+
+
+2. **Crea y activa un entorno virtual:**
+```bash
+# Creación del entorno
+python -m venv venv
+
+# Activación en Windows (PowerShell)
+.\venv\Scripts\activate
+
+# Activación en macOS/Linux
+source venv/bin/activate
+
+```
+
+
+3. **Instala las dependencias:**
+```bash
+pip install -r requirements.txt
+
+```
+
+
+4. **Configura las variables de entorno:**
+Crea un archivo `.env` en la raíz de la carpeta `backend` basándote en un archivo `.env.example` (si existe), o configura directamente los accesos a tu base de datos MySQL en `settings.py`.
+5. **Aplica las migraciones a la base de datos:**
+```bash
+python manage.py migrate
+
+```
+
+
+6. **Crea un superusuario (Administrador inicial):**
+```bash
+python manage.py createsuperuser
+
+```
+
+
+7. **Inicia el servidor de desarrollo:**
+```bash
+python manage.py runserver
+
+```
+
+
+*El backend estará corriendo en `http://localhost:8000*`
+
+### ⚛️ 3. Configuración del Frontend (React + Vite)
+
+Abre una nueva pestaña en tu terminal y mantén el backend corriendo.
+
+1. **Navega al directorio del frontend:**
+```bash
+cd frontend
+
+```
+
+
+2. **Instala las dependencias de Node:**
+```bash
+npm install
+
+```
+
+
+3. **Configura las variables de entorno:**
+Crea un archivo `.env` en la raíz de la carpeta `frontend` para apuntar a la API de Django:
+```env
+VITE_API_URL=http://localhost:8000/api
+
+```
+
+
+4. **Inicia el servidor de Vite:**
+```bash
+npm run dev
+
+```
+
+
+*El frontend estará corriendo y accesible desde el enlace local generado (generalmente `http://localhost:5173`).*
+
+```
+
+```
