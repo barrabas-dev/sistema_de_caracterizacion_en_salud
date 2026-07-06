@@ -13,6 +13,35 @@ El proyecto está construido bajo una arquitectura cliente-servidor robusta y co
 * **Gestión de Estado e Interfaz:** Zustand para el estado global, Lucide React para iconografía consistente, y Axios para peticiones HTTP asíncronas con interceptores.
 
 ---
+## 📷 Interfaz de la Aplicación (Capturas de Pantalla)
+
+A continuación, se presentan capturas de pantalla de los flujos principales del sistema, utilizando los archivos reales de tu proyecto.
+
+### 1. Control de Acceso (Login)
+La primera pantalla que interactúa con el usuario para asegurar el acceso con credenciales válidas y la gestión de roles.
+![Inicio de Sesión Segura](./screenshots/Login.jpeg)
+
+### 2. Panel de Control (Dashboard)
+El centro de mando principal, donde el personal de salud visualiza métricas clave y resúmenes de actividad.
+![Panel de Control Principal](./screenshots/Dashboard.jpeg)
+
+### 3. Gestión y Registro de Pacientes
+Módulos dedicados para visualizar el padrón completo y agregar nuevos pacientes al sistema de forma estructurada.
+![Módulo de Gestión de Pacientes](./screenshots/Gestion_de_pacientes.jpeg)
+![Módulo de Registro de Nuevo Paciente](./screenshots/Registro_de_pacientes.jpeg)
+
+### 4. Ciclo Clínico del PAE
+Este es el núcleo de la aplicación, dividiendo el flujo en entrada de datos y generación de resultados.
+
+**A. Nueva Encuesta Clínica**
+Formulario dinámico y modular para recopilar datos clínicos estructurados y valoraciones del marco RIAS.
+![Formulario de Nueva Encuesta](./screenshots/Nueva_encuesta.jpeg)
+
+**B. Generación e Impresión del Plan de Cuidados**
+El resultado final y tangible: la visualización estilizada y lista para imprimir del plan médico completo generado por el MotorPAE.
+![Plan de Cuidados Generado (Vista de Impresión)](./screenshots/Impresion_plan_generado.png)
+
+---
 
 ## 💾 Modelos de Datos y Persistencia
 La estructura relacional se fundamenta en tres pilares diseñados para escalabilidad y auditoría clínica:
